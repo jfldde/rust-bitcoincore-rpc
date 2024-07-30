@@ -22,7 +22,7 @@ extern crate log;
 #[macro_use] // `macro_use` is needed for v1.24.0 compilation.
 extern crate serde;
 
-pub extern crate jsonrpc;
+pub extern crate jsonrpc_async;
 
 pub extern crate bitcoincore_rpc_json;
 pub use crate::json::bitcoin;
