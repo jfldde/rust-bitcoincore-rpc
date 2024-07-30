@@ -13,13 +13,13 @@ use std::{error, fmt, io};
 use crate::bitcoin;
 use crate::bitcoin::hashes::hex;
 use crate::bitcoin::secp256k1;
-use jsonrpc;
+use jsonrpc_async;
 use serde_json;
 
 /// The error type for errors produced in this library.
 #[derive(Debug)]
 pub enum Error {
-    JsonRpc(jsonrpc::error::Error),
+    JsonRpc(jsonrpc_async::error::Error),
     Hex(hex::HexToBytesError),
     Json(serde_json::error::Error),
     BitcoinSerialization(bitcoin::consensus::encode::FromHexError),
@@ -33,8 +33,8 @@ pub enum Error {
     ReturnedError(String),
 }
 
-impl From<jsonrpc::error::Error> for Error {
-    fn from(e: jsonrpc::error::Error) -> Error {
+impl From<jsonrpc_async::error::Error> for Error {
+    fn from(e: jsonrpc_async::error::Error) -> Error {
         Error::JsonRpc(e)
     }
 }
