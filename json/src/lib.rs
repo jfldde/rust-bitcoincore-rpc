@@ -30,8 +30,8 @@ use bitcoin::consensus::encode;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::hashes::sha256;
 use bitcoin::{
-    bip158, bip32, Address, Amount, Network, PrivateKey, PublicKey, Script, ScriptBuf,
-    SignedAmount, Transaction,
+    bip158, bip32, Address, Amount, CompactTarget, Network, PrivateKey, PublicKey, Script,
+    ScriptBuf, SignedAmount, Transaction,
 };
 use serde::de::Error as SerdeError;
 use serde::{Deserialize, Serialize};
@@ -261,7 +261,7 @@ pub struct GetBlockVerboseResult {
     /// The block height or index
     pub height: u64,
     /// The block version
-    pub version: u32,
+    pub version: Version,
     /// The block version formatted in hexadecimal
     #[serde(rename = "versionHex", with = "crate::serde_hex")]
     pub version_hex: Vec<u8>,
@@ -276,7 +276,7 @@ pub struct GetBlockVerboseResult {
     /// The nonce
     pub nonce: u32,
     /// The bits
-    pub bits: String,
+    pub bits: CompactTarget,
     /// The difficulty
     pub difficulty: f64,
     /// Expected number of hashes required to produce the chain up to this block
@@ -859,6 +859,12 @@ pub struct ListUnspentResultEntry {
     #[serde(rename = "desc")]
     pub descriptor: Option<String>,
     pub safe: bool,
+    #[serde(rename = "ancestorcount")]
+    pub ancestor_count: Option<u64>,
+    #[serde(rename = "ancestorsize")]
+    pub ancestor_size: Option<u64>,
+    #[serde(rename = "ancestorfees")]
+    pub ancestor_fees: Option<u64>,
 }
 
 #[derive(Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
