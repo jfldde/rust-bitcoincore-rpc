@@ -349,7 +349,13 @@ pub trait RpcApi: Sized {
     async fn get_block_info(&self, hash: &bitcoin::BlockHash) -> Result<json::GetBlockResult> {
         self.call("getblock", &[into_json(hash)?, 1.into()]).await
     }
-    //TODO(stevenroose) add getblock_txs
+
+    async fn get_block_verbose(
+        &self,
+        hash: &bitcoin::BlockHash,
+    ) -> Result<json::GetBlockVerboseResult> {
+        self.call("getblock", &[into_json(hash)?, 2.into()]).await
+    }
 
     async fn get_block_header(&self, hash: &bitcoin::BlockHash) -> Result<bitcoin::block::Header> {
         let hex: String = self.call("getblockheader", &[into_json(hash)?, false.into()]).await?;
