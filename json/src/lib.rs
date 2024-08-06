@@ -276,7 +276,7 @@ pub struct GetBlockVerboseResult {
     /// The nonce
     pub nonce: u32,
     /// The bits
-    pub bits: CompactTarget,
+    pub bits: String,
     /// The difficulty
     pub difficulty: f64,
     /// Expected number of hashes required to produce the chain up to this block
